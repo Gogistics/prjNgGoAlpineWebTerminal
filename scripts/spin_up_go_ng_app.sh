@@ -2,9 +2,14 @@
 PRJ_DIR=$PWD
 
 # generate bundle files
+commands=(
+  "cd /rvbdCli && "
+  "npm install &&"
+  "ng build --deploy-url /ng/ --aot --prod"
+)
 cd $PRJ_DIR/rvbdCli &&
   docker pull johnpapa/angular-cli &&
-  docker run -v $PWD:/rvbdCli --rm johnpapa/angular-cli sh -c "cd /rvbdCli && ng build --deploy-url /ng/ --aot --prod" &&
+  docker run -v $PWD:/rvbdCli --rm johnpapa/angular-cli sh -c "${commands[*]}" &&
   [ "$(ls -A $PRJ_DIR/goAlpineApp/ng)" ] && rm -r $PRJ_DIR/goAlpineApp/ng/*
 
 # copy bundle files to golang dir

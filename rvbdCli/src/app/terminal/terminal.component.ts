@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit
+} from '@angular/core';
 
 
 class Terminal {
@@ -245,7 +249,9 @@ class Terminal {
 })
 export class TerminalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private el:ElementRef) {
+    console.warn(el);
+  }
 
   ngOnInit() {
     let rvbdTerminal = new Terminal('terminal')
