@@ -283,7 +283,24 @@ export class TerminalComponent implements OnInit {
         : `Execution ${input} is in progress`;
       rvbdTerminal.print(executionMsg);
       rvbdTerminal.print('');
-    })
+    });
+
+    // websocket
+    let ws = null;
+    if (WebSocket === undefined) {
+      console.warn("Your browser does not support WebSockets");
+    } else {
+      ws = new WebSocket('ws://' + location.host  + '/ws');
+      ws.onopen = function() {
+        console.log("Socket is open");
+      };
+      ws.onmessage = function (e) {
+        console.log("Got some shit:" + e.data);
+      }
+      ws.onclose = function () {
+        console.log("Socket closed");
+      }
+    }
   }
 
 }
