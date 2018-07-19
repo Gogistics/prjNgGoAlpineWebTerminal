@@ -94,6 +94,7 @@ class Terminal {
     inputField.onkeydown = function (e) {
       const isShift = !!e.shiftKey;
       if (e.which === 37 || e.which === 39 || e.which === 38 || e.which === 40) {
+        // skip the operations
         e.preventDefault();
       } else if (isShift) {
         switch (e.which) {
@@ -105,7 +106,6 @@ class Terminal {
               return command.indexOf(lastStr) !== -1;
             });
             terminalObj.print(result.join(' '));
-            console.warn(result);
             break;
           default:
             console.log('skip shift + key');
@@ -113,10 +113,6 @@ class Terminal {
         }
         e.preventDefault();
       } else if (shouldDisplayInput && e.which === 9) {
-        // const lastStr = inputField.value.split(/(\s+)/).pop();
-        // const result = self.commmands.filter(command => {
-        //   return command.indexOf(lastStr) !== -1;
-        // });
         terminalObj.print(self.commmands.join(' '));
 
         e.preventDefault();
