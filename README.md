@@ -14,3 +14,9 @@ $ ./scripts/spin_up_go_ng_app.sh
 ```
 
 4. Go to http://localhost:3000
+
+
+References:
+[Yang Models](https://github.com/YangModels/yang)
+[OpenConfig Yang Models](https://github.com/openconfig/public/tree/master/release/models)
+[ygot](https://github.com/openconfig/ygot)
