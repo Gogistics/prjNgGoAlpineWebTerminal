@@ -29,13 +29,13 @@ func FileHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 
-//
+// msg type for websocket
 type msg struct {
-  Num int
+  Command string
 }
 
 func wsHandler(w http.ResponseWriter, r *http.Request) {
-  if r.Header.Get("Origin") != "http://"+r.Host {
+  if r.Header.Get("Origin") != "http://" + r.Host {
     http.Error(w, "Origin not allowed", 403)
     return
   }

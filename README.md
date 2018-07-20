@@ -20,3 +20,8 @@ References:
 [Yang Models](https://github.com/YangModels/yang)
 [OpenConfig Yang Models](https://github.com/openconfig/public/tree/master/release/models)
 [ygot](https://github.com/openconfig/ygot)
+
+[OpenConfig, Data Models, and APIs](http://jedelman.com/home/openconfig-data-models-and-apis/)
+[Open Network Management](https://www.youtube.com/watch?v=IBh39OZQYoQ)
+
+[RxJS Subject](http://reactivex.io/rxjs/manual/overview.html#subject)

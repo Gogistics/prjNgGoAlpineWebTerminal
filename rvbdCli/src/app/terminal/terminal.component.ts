@@ -102,9 +102,11 @@ class Terminal {
             break;
           case 191:
             const lastStr = inputField.value.split(/(\s+)/).pop();
-            const result = lastStr === '' ? [] : self.commmands.filter(command => {
-              return command.indexOf(lastStr) !== -1;
-            });
+            const result = lastStr === ''
+              ? []
+              : self.commmands.filter(command => {
+                return command.indexOf(lastStr) !== -1;
+              });
             terminalObj.print(result.join(' '));
             break;
           default:
@@ -268,18 +270,10 @@ export class TerminalComponent implements OnInit {
   }
 
   ngOnInit() {
-    let rvbdTerminal = new Terminal('terminal')
-    rvbdTerminal.setHeight("200px")
-    rvbdTerminal.setWidth('600px')
-    document.body.appendChild(rvbdTerminal.html)
-    rvbdTerminal.print('<= Router Configuration =>')
-    rvbdTerminal.input('Start to configure: ', function (input) {
-      const executionMsg = rvbdTerminal.commmands.indexOf(input) === -1
-        ? `Unknown command '${input}'`
-        : `Execution ${input} is in progress`;
-      rvbdTerminal.print(executionMsg);
-      rvbdTerminal.print('');
-    });
+    let rvbdTerminal = new Terminal('terminal');
+    rvbdTerminal.setHeight("300px");
+    rvbdTerminal.setWidth('100%');
+    document.body.appendChild(rvbdTerminal.html);
 
     // websocket
     let ws = null;
@@ -297,6 +291,21 @@ export class TerminalComponent implements OnInit {
         console.log("Socket closed");
       }
     }
+
+    // communication mechanism (will be replaced by rxjs Subject)
+    rvbdTerminal.print('<= Router Configuration =>')
+    rvbdTerminal.input('Start to configure: ', function (input) {
+      const executionMsg = (rvbdTerminal.commmands.indexOf(input) === -1)
+        ? `Unknown command '${input}'`
+        : `Execution ${input} is in progress`;
+      rvbdTerminal.print(executionMsg);
+      rvbdTerminal.print('');
+
+      // send messages to backend server via websocket
+      if (rvbdTerminal.commmands.indexOf(input) !== -1) {
+        ws.send(JSON.stringify({Command: input}));
+      }
+    });
   }
 
 }
