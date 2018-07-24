@@ -5,7 +5,10 @@ import (
   "flag"
   "net/http"
   "strings"
+  "encoding/json"
   "./websocket"
+  "io/ioutil"
+  "bytes"
 )
 
 const prefixSlash = "/"
@@ -63,6 +66,43 @@ func echo(conn *websocket.Conn) {
     }
   }
 }
+// \// msg type for websocket
+
+// api
+type apiResp struct {
+  Key int
+  Items []string
+}
+
+func apiHandler(w http.ResponseWriter, r *http.Request) {
+  if r.Method != "POST" {
+    http.Error(w, "API only handles the requests via POST", http.StatusNotFound)
+    return
+  }
+
+  // Read body
+  b, err := ioutil.ReadAll(r.Body)
+  defer r.Body.Close()
+  if err != nil {
+    http.Error(w, err.Error(), 500)
+    return
+  }
+  rbody := ioutil.NopCloser(bytes.NewBuffer(b))
+  log.Printf("BODY: %q", rbody)
+
+  // reply to the request
+  res := &apiResp{
+    Key: 1,
+    Items: []string{"one", "two", "three"}}
+  js, err := json.Marshal(res)
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+  w.Header().Set("Content-Type", "application/json")
+  w.Write(js)
+}
+// \api
 
 // server entry
 func main() {
@@ -70,7 +110,14 @@ func main() {
   dir := flag.String("d", ".", "dir")
   flag.Parse()
 
+  // websocket
   http.HandleFunc("/ws", wsHandler)
+
+  // REST API
+  // mux := http.NewServeMux()
+  http.HandleFunc("/api", apiHandler)
+
+  // serve static files
   http.HandleFunc(prefixSlash, FileHandler)
   
   log.Printf("Serving %s Http port: %s\n", *dir, *port)
