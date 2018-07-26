@@ -24,4 +24,9 @@ References:
 [OpenConfig, Data Models, and APIs](http://jedelman.com/home/openconfig-data-models-and-apis/)
 [Open Network Management](https://www.youtube.com/watch?v=IBh39OZQYoQ)
 
+[Dockerized virtual routers](https://github.com/plajjan/vrnetlab)
+
+[Message queue system for go based on redis](https://github.com/adjust/redismq)
+[A golang queues, stacks and deques implementation library](https://github.com/oleiade/lane)
+
 [RxJS Subject](http://reactivex.io/rxjs/manual/overview.html#subject)
