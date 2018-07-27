@@ -6,9 +6,10 @@ import (
   "net/http"
   "strings"
   "encoding/json"
-  "./websocket"
   "io/ioutil"
   "bytes"
+  "./dep_modules/websocket"
+  "./dep_modules/redismq"
 )
 
 const prefixSlash = "/"
@@ -106,6 +107,11 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 // server entry
 func main() {
+  // redis
+  testQueue := redismq.CreateQueue("172.99.0.10", "6379", "", 9, "clicks")
+  testQueue.Put("testpayload")
+
+  // handle request
   port := flag.String("p", "3000", "port")
   dir := flag.String("d", ".", "dir")
   flag.Parse()
