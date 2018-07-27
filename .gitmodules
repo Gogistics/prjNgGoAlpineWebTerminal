@@ -1,0 +1,3 @@
+[submodule "dep_modules/virtualRouter"]
+	path = dep_modules/virtualRouter
+	url = git@github.com:plajjan/vrnetlab.git
