@@ -1,3 +1,6 @@
 [submodule "dep_modules/virtualRouter"]
 	path = dep_modules/virtualRouter
 	url = git@github.com:plajjan/vrnetlab.git
+[submodule "dep_modules/gopkg.in/redis.v3"]
+	path = dep_modules/gopkg.in/redis.v3
+	url = git@github.com:go-redis/redis.git

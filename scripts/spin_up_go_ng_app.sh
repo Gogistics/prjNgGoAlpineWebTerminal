@@ -59,7 +59,7 @@ cd $PRJ_DIR &&
 
 # build docker img and spin up the container
 cd $PRJ_DIR/goAlpineApp &&
-  docker build -t go-ng-app -f Dockerfile.ng . &&
+  docker build -t go-ng-app -f Dockerfile.go . &&
   docker run \
     --name my-web-app \
     --net=my_network \
